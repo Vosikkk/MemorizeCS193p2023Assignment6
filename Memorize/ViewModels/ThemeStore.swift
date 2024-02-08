@@ -22,13 +22,11 @@ extension UserDefaults {
         let data = try? JSONEncoder().encode(themes)
         set(data, forKey: key)
     }
-    
 }
 
 
 
 class ThemeStore: ObservableObject, Identifiable {
-    
     
     let name: String
     
@@ -45,6 +43,7 @@ class ThemeStore: ObservableObject, Identifiable {
         set {
             if !newValue.isEmpty {
                 UserDefaults.standard.set(newValue, forKey: userDefaultsKey)
+                objectWillChange.send()
             }
         }
     }
@@ -52,6 +51,7 @@ class ThemeStore: ObservableObject, Identifiable {
     
     init(named name: String) {
         self.name = name
+        UserDefaults.standard.removeObject(forKey: userDefaultsKey)
         if themes.isEmpty {
             themes = Theme.builtins
             if themes.isEmpty {
@@ -59,6 +59,7 @@ class ThemeStore: ObservableObject, Identifiable {
             }
         }
     }
+    
     
     func getColor(for theme: Theme) -> Color {
         if let index = themes.getIndex(of: theme) {
@@ -74,27 +75,53 @@ class ThemeStore: ObservableObject, Identifiable {
     }
     
     
-    func convert(_ color: Color) -> RGBA {
+    private func convert(_ color: Color) -> RGBA {
         RGBA(color: color)
     }
     
-    func convert(_ rgba: RGBA) -> Color {
+    private func convert(_ rgba: RGBA) -> Color {
         Color(rgba: rgba)
     }
     
     
+    private func append(_ theme: Theme) {
+        if let index = themes.getIndex(of: theme) {
+            if themes.count == 1 {
+                themes = [theme]
+            } else {
+                themes.remove(at: index)
+                themes.append(theme)
+            }
+        } else {
+            themes.append(theme)
+        }
+    }
     
+    func append(name: String, emojis: String, color: Color) {
+        append(Theme(name: name, emojis: emojis, color: convert(color)))
+    }
 }
 
 
+extension RGBA {
+    
+    init(color: Color) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        self.init(red: Double(red), green: Double(green), blue: Double(blue), alpha: Double(alpha))
+    }
+}
 
-extension Array where Element: Identifiable {
-    func getIndex(of element: Element) -> Int? {
-        for index in 0..<self.count {
-            if self[index].id == element.id {
-                return index
-            }
-        }
-        return nil
+extension Theme {
+    
+    var uiColor: Color {
+        Color(rgba: color)
+    }
+    
+    func rGBA(from color: Color) -> RGBA {
+        RGBA(color: color)
     }
 }
