@@ -55,33 +55,11 @@ class ThemeStore: ObservableObject, Identifiable {
         if themes.isEmpty {
             themes = Theme.builtins
             if themes.isEmpty {
-                themes = [Theme(name: "Warning", emojis: "⚠️", color: RGBA(color: Color.blue))]
+                themes = [Theme(name: "Warning", emojis: "⚠️", color: RGBA(color: Color.blue), numberOfPairs: 3)]
             }
         }
     }
     
-    
-    func getColor(for theme: Theme) -> Color {
-        if let index = themes.getIndex(of: theme) {
-            return convert(themes[index].color)
-        }
-        return Color.white
-    }
-    
-    func set(_ color: Color, for theme: Theme) {
-        if let index = themes.getIndex(of: theme) {
-            themes[index].color = convert(color)
-        }
-    }
-    
-    
-    private func convert(_ color: Color) -> RGBA {
-        RGBA(color: color)
-    }
-    
-    private func convert(_ rgba: RGBA) -> Color {
-        Color(rgba: rgba)
-    }
     
     
     private func append(_ theme: Theme) {
@@ -97,8 +75,8 @@ class ThemeStore: ObservableObject, Identifiable {
         }
     }
     
-    func append(name: String, emojis: String, color: Color) {
-        append(Theme(name: name, emojis: emojis, color: convert(color)))
+    func append(name: String, emojis: String, color: Color, numberOfPairs: Int) {
+        append(Theme(name: name, emojis: emojis, color: RGBA(color: color), numberOfPairs: numberOfPairs))
     }
 }
 
@@ -123,5 +101,9 @@ extension Theme {
     
     func rGBA(from color: Color) -> RGBA {
         RGBA(color: color)
+    }
+    
+    var pairs: Int {
+        self.emojis.count * 2
     }
 }

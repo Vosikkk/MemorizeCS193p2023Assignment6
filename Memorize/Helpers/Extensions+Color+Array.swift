@@ -6,12 +6,20 @@
 //
 
 import SwiftUI
-
+import UIKit
 
 extension Color {
     init(rgba: RGBA) {
         self.init(.sRGB, red: rgba.red, green: rgba.green, blue: rgba.blue, opacity: rgba.alpha)
     }
+    
+    var name: String {
+        UIColor(self).accessibilityName
+            .split(separator: " ")
+            .map { $0.prefix(1).capitalized + $0.dropFirst() }
+            .joined(separator:" ")
+    }
+    
 }
 
 extension Array where Element: Identifiable {

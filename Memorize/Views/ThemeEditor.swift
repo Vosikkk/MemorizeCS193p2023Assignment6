@@ -12,8 +12,8 @@ struct ThemeEditor: View {
     @Binding var theme: Theme
     @State var emojiToAdd: String = ""
     @State var selectedColor: Color = .red
-    
-    private let emojiFont = Font.system(size: 40)
+    @State var numberOfPairs: Int = 2
+    private let emojiFont = Font.system(size: 30)
     
     
     var body: some View {
@@ -21,6 +21,7 @@ struct ThemeEditor: View {
             nameTextField
             emojisTextFiled
             colorPicker
+            numberOfCards
         }
     }
     
@@ -75,6 +76,17 @@ struct ThemeEditor: View {
             }
         }
         .font(emojiFont)
+    }
+    
+    private var numberOfCards: some View {
+        Section {
+            Stepper("Cards: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: 2...theme.pairs)
+                .onChange(of: theme.numberOfPairs) { oldValue, newValue in
+                    theme.numberOfPairs = max(2, min(newValue, theme.emojis.count))
+                }
+        } header: {
+            Text("Cards")
+        }
     }
 }
 
