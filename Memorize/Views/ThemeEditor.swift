@@ -12,9 +12,8 @@ struct ThemeEditor: View {
     @Binding var theme: Theme
     @State var emojiToAdd: String = ""
     @State var selectedColor: Color = .red
-    @State var numberOfPairs: Int = 2
     private let emojiFont = Font.system(size: 30)
-    
+
     
     var body: some View {
         Form {
@@ -64,8 +63,9 @@ struct ThemeEditor: View {
         VStack(alignment: .trailing) {
             Text("Tap to Remove Emojis").font(.caption).foregroundStyle(.gray)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 40))]) {
-                ForEach(theme.emojis.uniqued.map(String.init), id: \.self) { emoji in
+                  ForEach(theme.emojis.uniqued.map(String.init), id: \.self) { emoji in
                     Text(emoji)
+                        .opacity(isInGame(emoji) ? 1 : 0.4)
                         .onTapGesture {
                             withAnimation {
                                 theme.emojis.remove(emoji.first!)
@@ -80,13 +80,17 @@ struct ThemeEditor: View {
     
     private var numberOfCards: some View {
         Section {
-            Stepper("Cards: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: 2...theme.pairs)
+            Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: 2...theme.emojis.count)
                 .onChange(of: theme.numberOfPairs) { oldValue, newValue in
                     theme.numberOfPairs = max(2, min(newValue, theme.emojis.count))
                 }
         } header: {
-            Text("Cards")
+            Text("Max available quantity: \(theme.pairs)")
         }
+    }
+    
+    private func isInGame(_ emoji: String) -> Bool {
+        theme.emojis.prefix(theme.numberOfPairs).contains(emoji)
     }
 }
 
