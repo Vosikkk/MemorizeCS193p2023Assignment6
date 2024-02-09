@@ -10,10 +10,17 @@ import SwiftUI
 struct ThemeEditor: View {
     
     @Binding var theme: Theme
-    @State var emojiToAdd: String = ""
-    @State var selectedColor: Color = .red
+    @State private var emojiToAdd: String = ""
+    @State private var selectedColor: Color = .red
+    @FocusState private var focuced: Focused?
+    
     private let emojiFont = Font.system(size: 30)
 
+    
+    enum Focused {
+        case name
+        case addEmojis
+    }
     
     var body: some View {
         Form {
@@ -21,6 +28,13 @@ struct ThemeEditor: View {
             emojisTextFiled
             colorPicker
             numberOfCards
+        }
+        .onAppear {
+            if theme.name.isEmpty {
+                focuced = .name
+            } else {
+                focuced = .addEmojis
+            }
         }
     }
     
@@ -39,6 +53,7 @@ struct ThemeEditor: View {
     private var nameTextField: some View {
         Section {
             TextField("Name", text: $theme.name)
+                .focused($focuced, equals: .name)
         } header: {
             Text("Name")
         }
@@ -47,6 +62,7 @@ struct ThemeEditor: View {
     private var emojisTextFiled: some View {
         Section {
             TextField("Add Emojis Here", text: $emojiToAdd)
+                .focused($focuced, equals: .addEmojis)
                 .font(emojiFont)
                 .onChange(of: emojiToAdd) { oldValue, newValue in
                     theme.emojis = (newValue + theme.emojis)
