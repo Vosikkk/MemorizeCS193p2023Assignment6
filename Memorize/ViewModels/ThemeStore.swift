@@ -60,7 +60,9 @@ class ThemeStore: ObservableObject, Identifiable {
         }
     }
     
-    
+    func insert(name: String, emojis: String, color: Color = Color.red, numberOfPairs: Int = 2) {
+        themes.insert(Theme(name: name, emojis: emojis, color: RGBA(color: color), numberOfPairs: numberOfPairs), at: 0)
+    }
     
     private func append(_ theme: Theme) {
         if let index = themes.getIndex(of: theme) {

@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ThemeChooser: View {
     
-    @ObservedObject var store: ThemeStore
+    @EnvironmentObject var store: ThemeStore
     @State private var showThemeEditor: Bool = false
     @State private var themeId: Theme.ID?
+   
     
     private let font = Font.system(size: 20)
     
@@ -19,8 +20,9 @@ struct ThemeChooser: View {
         NavigationStack {
             List {
                 ForEach(store.themes) { theme in
-                    row(of: theme)
-                        .gesture(tap(on: theme))
+                    NavigationLink(value: theme.id) {
+                        row(of: theme)
+                    }
                 }
                 .onDelete { indexSet in
                     store.themes.remove(atOffsets: indexSet)
@@ -31,17 +33,27 @@ struct ThemeChooser: View {
             }
             .sheet(isPresented: $showThemeEditor) {
                 if let index = store.themes.firstIndex(where: { $0.id == themeId }) {
-                    
                     ThemeEditor(theme: $store.themes[index])
                 }
             }
-//            .navigationDestination(for: Theme.ID.self) { themeId in
-//                if let index = store.themes.firstIndex(where: { $0.id == themeId }) {
-//                    ThemeEditor(theme: $store.themes[index])
-//                }
-//            }
+            .navigationDestination(for: Theme.ID.self) { themeId in
+                if let index = store.themes.firstIndex(where: { $0.id == themeId }) {
+                   EmojiMemoryGameView(viewModel: EmojiMemoryGame(theme: store.themes[index]))
+                }
+            }
+            .onChange(of: themeId) { _ , _ in
+                 showThemeEditor = true
+            }
             .listStyle(.inset)
             .navigationTitle("Memorize")
+            .toolbar {
+                Button {
+                    store.insert(name: "New", emojis: "")
+                    themeId = store.themes.first?.id
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
         }
     }
     
@@ -52,6 +64,9 @@ struct ThemeChooser: View {
             color(for: theme)
             cards(for: theme)
             Text(theme.emojis).lineLimit(1)
+        }
+        .onTapGesture {
+            themeId = theme.id
         }
         .font(font)
         .shadow(color: .blue,
@@ -71,16 +86,8 @@ struct ThemeChooser: View {
     private func cards(for theme: Theme) -> some View {
         HStack {
             Text("Cards:")
-            Text(theme.pairs, format: .number)
+            Text(getCurrentNumberOfCards(of: theme), format: .number)
         }
-    }
-    
-    private func tap(on theme: Theme) -> some Gesture {
-        TapGesture()
-            .onEnded {
-                self.themeId = theme.id
-                showThemeEditor = true
-            }
     }
     
     private struct Constants {
@@ -89,9 +96,13 @@ struct ThemeChooser: View {
         static let positionY: CGFloat = 0.2
         static let spacing: CGFloat = 5
     }
+    
+    private func getCurrentNumberOfCards(of theme: Theme) -> Int {
+        theme.numberOfPairs * 2
+    }
 }
 
 #Preview {
-    ThemeChooser(store: ThemeStore(named: "Preview"))
-       
+    ThemeChooser()
+        .environmentObject(ThemeStore(named: "Preview"))
 }

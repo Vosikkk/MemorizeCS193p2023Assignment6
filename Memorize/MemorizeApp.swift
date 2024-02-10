@@ -14,9 +14,9 @@ struct Assignment1MemorizeApp: App {
     @StateObject var themesStore = ThemeStore(named: "Main")
     var body: some Scene {
         WindowGroup {
-            ThemeChooser(store: themesStore)
+            ThemeChooser()
            // EmojiMemoryGameView(viewModel: game)
-               // .environmentObject(themesStore)
+                .environmentObject(themesStore)
         }
     }
 }

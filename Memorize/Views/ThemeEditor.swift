@@ -35,6 +35,7 @@ struct ThemeEditor: View {
             } else {
                 focuced = .addEmojis
             }
+            selectedColor = theme.uiColor
         }
     }
     
@@ -96,7 +97,7 @@ struct ThemeEditor: View {
     
     private var numberOfCards: some View {
         Section {
-            Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: 2...theme.emojis.count)
+            Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: theme.emojis.count > 0 ? 2...theme.emojis.count : 2...2)
                 .onChange(of: theme.numberOfPairs) { oldValue, newValue in
                     theme.numberOfPairs = max(2, min(newValue, theme.emojis.count))
                 }

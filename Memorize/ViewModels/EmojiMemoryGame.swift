@@ -18,15 +18,17 @@ class EmojiMemoryGame: ObservableObject {
     
     
     var score: Int {
-        return game.score
+         game.score
     }
     
     var nameOfTheme: String {
-        return theme.name
+         theme.name
+    }
+    var colorOfTheme: Color {
+        theme.uiColor
     }
     
     private var theme: Theme
-    
     
     
     init(theme: Theme) {
