@@ -13,8 +13,8 @@ struct ThemeEditor: View {
     @State private var emojiToAdd: String = ""
     @State private var selectedColor: Color = .red
     @FocusState private var focuced: Focused?
-    
     private let emojiFont = Font.system(size: 30)
+    private let removedEmojiFont = Font.system(size: 20)
 
     
     enum Focused {
@@ -28,7 +28,9 @@ struct ThemeEditor: View {
             emojisTextFiled
             colorPicker
             numberOfCards
+            removedEmojis
         }
+        .scrollIndicators(.hidden)
         .onAppear {
             if theme.name.isEmpty {
                 focuced = .name
@@ -87,12 +89,39 @@ struct ThemeEditor: View {
                             withAnimation {
                                 theme.emojis.remove(emoji.first!)
                                 emojiToAdd.remove(emoji.first!)
+                                theme.removedEmojis.add(emoji.first!)
                             }
                         }
                 }
             }
         }
         .font(emojiFont)
+    }
+    
+    
+    private var removedEmojis: some View {
+        Section { VStack(alignment: .trailing) {
+            Text("Tap To Return Emojis").font(.caption).foregroundStyle(.gray)
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 20))]) {
+                ForEach(theme.removedEmojis.map(String.init), id: \.self) { emoji in
+                    Text(emoji)
+                        .onTapGesture {
+                            withAnimation {
+                                theme.removedEmojis.remove(emoji.first!)
+                                theme.emojis.add(emoji.first!)
+                            }
+                        }
+                }
+            }
+        }
+        .font(removedEmojiFont)
+        } header: {
+            Text("Shows Removed Emojis")
+        }
+    }
+    
+    private var isEmptyRemoved: Bool {
+        theme.removedEmojis.isEmpty
     }
     
     private var numberOfCards: some View {
@@ -102,7 +131,7 @@ struct ThemeEditor: View {
                     theme.numberOfPairs = max(2, min(newValue, theme.emojis.count))
                 }
         } header: {
-            Text("Max available quantity: \(theme.pairs)")
+            Text("Max available quantity: \(theme.emojis.count)")
         }
     }
     

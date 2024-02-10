@@ -11,7 +11,7 @@ struct ThemeChooser: View {
     
     @EnvironmentObject var store: ThemeStore
     @State private var showThemeEditor: Bool = false
-    @State private var themeId: Theme.ID?
+    @State private var choosenTheme: Theme?
    
     
     private let font = Font.system(size: 20)
@@ -32,29 +32,30 @@ struct ThemeChooser: View {
                 }
             }
             .sheet(isPresented: $showThemeEditor) {
-                if let index = store.themes.firstIndex(where: { $0.id == themeId }) {
-                    ThemeEditor(theme: $store.themes[index])
+                if let choosenTheme {
+                    ThemeEditor(theme: $store.themes[choosenTheme])
                 }
             }
             .navigationDestination(for: Theme.ID.self) { themeId in
-                if let index = store.themes.firstIndex(where: { $0.id == themeId }) {
-                   EmojiMemoryGameView(viewModel: EmojiMemoryGame(theme: store.themes[index]))
+                if let theme = store.themes[themeId] {
+                    EmojiMemoryGameView(viewModel: EmojiMemoryGame(theme: theme))
                 }
             }
-            .onChange(of: themeId) { _ , _ in
+            .onChange(of: choosenTheme) { _ , _ in
                  showThemeEditor = true
             }
             .listStyle(.inset)
             .navigationTitle("Memorize")
             .toolbar {
                 Button {
-                    store.insert(name: "New", emojis: "")
-                    themeId = store.themes.first?.id
+                    store.insert(name: "", emojis: "")
+                    choosenTheme = store.themes.first
                 } label: {
                     Image(systemName: "plus")
                 }
             }
         }
+        .scrollIndicators(.hidden)
     }
     
     private func row(of theme: Theme) -> some View {
@@ -66,7 +67,7 @@ struct ThemeChooser: View {
             Text(theme.emojis).lineLimit(1)
         }
         .onTapGesture {
-            themeId = theme.id
+            choosenTheme = theme
         }
         .font(font)
         .shadow(color: .blue,
@@ -86,7 +87,7 @@ struct ThemeChooser: View {
     private func cards(for theme: Theme) -> some View {
         HStack {
             Text("Cards:")
-            Text(getCurrentNumberOfCards(of: theme), format: .number)
+            Text(theme.cards, format: .number)
         }
     }
     
@@ -95,10 +96,6 @@ struct ThemeChooser: View {
         static let positionX: CGFloat = 0.2
         static let positionY: CGFloat = 0.2
         static let spacing: CGFloat = 5
-    }
-    
-    private func getCurrentNumberOfCards(of theme: Theme) -> Int {
-        theme.numberOfPairs * 2
     }
 }
 

@@ -61,24 +61,8 @@ class ThemeStore: ObservableObject, Identifiable {
     }
     
     func insert(name: String, emojis: String, color: Color = Color.red, numberOfPairs: Int = 2) {
-        themes.insert(Theme(name: name, emojis: emojis, color: RGBA(color: color), numberOfPairs: numberOfPairs), at: 0)
-    }
-    
-    private func append(_ theme: Theme) {
-        if let index = themes.getIndex(of: theme) {
-            if themes.count == 1 {
-                themes = [theme]
-            } else {
-                themes.remove(at: index)
-                themes.append(theme)
-            }
-        } else {
-            themes.append(theme)
-        }
-    }
-    
-    func append(name: String, emojis: String, color: Color, numberOfPairs: Int) {
-        append(Theme(name: name, emojis: emojis, color: RGBA(color: color), numberOfPairs: numberOfPairs))
+        let newTheme = Theme(name: name, emojis: emojis, color: RGBA(color: color), numberOfPairs: numberOfPairs)
+        themes.insert(newTheme, at: 0)
     }
 }
 
@@ -105,7 +89,7 @@ extension Theme {
         RGBA(color: color)
     }
     
-    var pairs: Int {
-        self.emojis.count * 2
+    var cards: Int {
+        numberOfPairs * 2
     }
 }

@@ -16,6 +16,11 @@ struct Theme: Identifiable, Codable, Hashable {
     var color: RGBA
     var numberOfPairs: Int
     
+    // Extra    
+    var removedEmojis: String = ""
+    
+    
+    
     static var builtins: [Theme] { [
         Theme(name: "Vehicles", emojis: "🚙🚗🚘🚕🚖🏎🚚🛻🚛🚐🚓🚔🚑🚒🚀✈️🛫🛬🛩🚁🛸🚲🏍🛶⛵️🚤🛥🛳⛴🚢🚂🚝🚅🚆🚊🚉🚇🛺🚜", color: RGBA(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0), numberOfPairs: 10),
         Theme(name: "Sports", emojis:  "🏈⚾️🏀⚽️🎾🏐🥏🏓⛳️🥅🥌🏂⛷🎳", color: RGBA(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0), numberOfPairs: 5),

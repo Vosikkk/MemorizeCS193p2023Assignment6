@@ -23,14 +23,34 @@ extension Color {
 }
 
 extension Array where Element: Identifiable {
-    func getIndex(of element: Element) -> Int? {
-        for index in 0..<self.count {
-            if self[index].id == element.id {
-                return index
+        
+    subscript(_ elementId: Element.ID) -> Element? {
+        if let index = index(of: elementId) {
+            return self[index]
+        } else {
+            return nil
+        }
+    }
+    
+    subscript(_ element: Element) -> Element {
+        get {
+            if let index = index(of: element.id) {
+                return self[index]
+            } else {
+                return element // should probably throw error
             }
         }
-        return nil
+        set {
+            if let index = index(of: element.id) {
+                self[index] = newValue
+            }
+        }
     }
+    
+    private func index(of elementId: Element.ID) -> Int? {
+        firstIndex(where: { $0.id == elementId } )
+    }
+    
 }
 
 extension String {
@@ -45,6 +65,10 @@ extension String {
     
     mutating func remove(_ ch: Character) {
         removeAll(where: { $0 == ch })
+    }
+    
+    mutating func add(_ ch: Character) {
+        insert(ch, at: startIndex)
     }
 }
 
