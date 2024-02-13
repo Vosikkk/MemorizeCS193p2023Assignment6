@@ -9,17 +9,18 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     
-    @ObservedObject var viewModel: EmojiMemoryGame
+    @ObservedObject var game: EmojiMemoryGame
     
     var body: some View {
         VStack {
             HStack {
-                Text("\(viewModel.nameOfTheme)")
-                    .font(.largeTitle)
+                Text("\(game.nameOfTheme)")
                 Spacer()
-                Text("Score: \(viewModel.score)")
-                    .font(.largeTitle)
+                Text("Score: \(game.score)")
             }
+            .font(.title)
+            .fontWeight(.semibold)
+            
             ScrollView(showsIndicators: false) {
                 cards
             }
@@ -30,19 +31,19 @@ struct EmojiMemoryGameView: View {
             //.font(.title)
         }
         .toolbarTitleDisplayMode(.inline)
-        .foregroundStyle(viewModel.colorOfTheme)
-        .padding()
+        .foregroundStyle(game.colorOfTheme)
+        .padding(.horizontal, 10)
     }
     
     var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0) {
-            ForEach(viewModel.cards.indices, id: \.self) { index in
-                CardView(card: viewModel.cards[index], model: viewModel)
+            ForEach(game.cards.indices, id: \.self) { index in
+                CardView(card: game.cards[index], model: game)
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
             }
         }
-        .foregroundStyle(viewModel.colorOfTheme)
+        .foregroundStyle(game.colorOfTheme)
     }
 }
 
@@ -76,7 +77,7 @@ struct CardView: View {
     
 }
 
-
+//
 //#Preview {
-//    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+//    EmojiMemoryGameView(viewModel: EmojiMemoryGame(theme: ))
 //}

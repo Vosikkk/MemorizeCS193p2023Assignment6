@@ -51,7 +51,7 @@ class ThemeStore: ObservableObject, Identifiable {
     
     init(named name: String) {
         self.name = name
-        UserDefaults.standard.removeObject(forKey: userDefaultsKey)
+       // UserDefaults.standard.removeObject(forKey: userDefaultsKey)
         if themes.isEmpty {
             themes = Theme.builtins
             if themes.isEmpty {

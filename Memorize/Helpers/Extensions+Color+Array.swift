@@ -51,6 +51,12 @@ extension Array where Element: Identifiable {
         firstIndex(where: { $0.id == elementId } )
     }
     
+    mutating func remove(_ element: Element) {
+        if let index = index(of: element.id) {
+                remove(at: index)
+            }
+        }
+    
 }
 
 extension String {
@@ -80,5 +86,26 @@ extension Character {
         } else {
             return false
         }
+    }
+}
+
+extension View {
+    var safeArea: UIEdgeInsets {
+        if let windowScene = (UIApplication.shared.connectedScenes.first as? UIWindowScene) {
+            return windowScene.keyWindow?.safeAreaInsets ?? .zero
+        }
+        return .zero
+    }
+    
+    @ViewBuilder
+    func hSpacing(_ alignment: Alignment = .center) -> some View {
+        self
+            .frame(maxWidth: .infinity, alignment: alignment)
+    }
+    
+    @ViewBuilder
+    func vSpacing(_ alignment: Alignment = .center) -> some View {
+        self
+            .frame(maxHeight: .infinity, alignment: alignment)
     }
 }

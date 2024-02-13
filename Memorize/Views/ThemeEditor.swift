@@ -13,6 +13,7 @@ struct ThemeEditor: View {
     @State private var emojiToAdd: String = ""
     @State private var selectedColor: Color = .red
     @FocusState private var focuced: Focused?
+    
     private let emojiFont = Font.system(size: 30)
     private let removedEmojiFont = Font.system(size: 20)
 
@@ -120,10 +121,6 @@ struct ThemeEditor: View {
         }
     }
     
-    private var isEmptyRemoved: Bool {
-        theme.removedEmojis.isEmpty
-    }
-    
     private var numberOfCards: some View {
         Section {
             Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: theme.emojis.count > 0 ? 2...theme.emojis.count : 2...2)
@@ -137,6 +134,10 @@ struct ThemeEditor: View {
     
     private func isInGame(_ emoji: String) -> Bool {
         theme.emojis.prefix(theme.numberOfPairs).contains(emoji)
+    }
+    
+    private var isEmptyRemoved: Bool {
+        theme.removedEmojis.isEmpty
     }
 }
 
