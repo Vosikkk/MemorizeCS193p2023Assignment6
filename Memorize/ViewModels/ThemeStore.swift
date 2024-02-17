@@ -64,6 +64,10 @@ class ThemeStore: ObservableObject, Identifiable {
         let newTheme = Theme(name: name, emojis: emojis, color: RGBA(color: color), numberOfPairs: numberOfPairs)
         themes.insert(newTheme, at: 0)
     }
+    
+    func remove(_ theme: Theme) {
+        themes.remove(theme)
+    }
 }
 
 
@@ -91,5 +95,9 @@ extension Theme {
     
     var cards: Int {
         numberOfPairs * 2
+    }
+    
+    var emjisCount: Int {
+        emojis.count
     }
 }

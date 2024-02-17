@@ -16,7 +16,6 @@ class EmojiMemoryGame: ObservableObject {
         return game.cards
     }
     
-    
     var score: Int {
          game.score
     }
@@ -34,14 +33,14 @@ class EmojiMemoryGame: ObservableObject {
     init(theme: Theme) {
         self.theme = theme
         game = MemoryGame(pairsOfCards: max(theme.numberOfPairs, 2), cardContentFactory: {
-            return theme.emojis.map(String.init)[$0]
+            theme.emojis.map(String.init)[$0]
         })
     }
     
     
     func new() {
         game = MemoryGame(pairsOfCards: max(theme.numberOfPairs, 2), cardContentFactory: {
-            return theme.emojis.map(String.init)[$0]
+             theme.emojis.map(String.init)[$0]
         })
     }
 

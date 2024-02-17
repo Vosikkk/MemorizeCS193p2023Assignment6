@@ -43,7 +43,7 @@ struct EmojiMemoryGameView: View {
                     .padding(4)
             }
         }
-        .foregroundStyle(game.colorOfTheme)
+        .foregroundStyle(game.colorOfTheme.gradient)
     }
 }
 

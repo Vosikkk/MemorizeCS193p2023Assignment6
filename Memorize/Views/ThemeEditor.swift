@@ -13,10 +13,13 @@ struct ThemeEditor: View {
     @State private var emojiToAdd: String = ""
     @State private var selectedColor: Color = .red
     @FocusState private var focuced: Focused?
+    @State private var showAlert: Bool = false
+    @State private var isSaveButtonDisabled: Bool = false
     
     private let emojiFont = Font.system(size: 30)
     private let removedEmojiFont = Font.system(size: 20)
-
+    
+    @Environment(\.dismiss) private var dismiss
     
     enum Focused {
         case name
@@ -24,14 +27,21 @@ struct ThemeEditor: View {
     }
     
     var body: some View {
-        Form {
-            nameTextField
-            emojisTextFiled
-            colorPicker
-            numberOfCards
-            removedEmojis
+        VStack {
+            HStack {
+                saveButton
+                Spacer()
+                cancelButton
+            }
+            .padding()
+            Form {
+                nameTextField
+                emojisTextFiled
+                colorPicker
+                numberOfCards
+                removedEmojis
+            }
         }
-        .scrollIndicators(.hidden)
         .onAppear {
             if theme.name.isEmpty {
                 focuced = .name
@@ -40,6 +50,14 @@ struct ThemeEditor: View {
             }
             selectedColor = theme.uiColor
         }
+        .onChange(of: theme.emojis) { oldValue, newValue in
+            if newValue.count > 1 {
+                isSaveButtonDisabled = false
+            }
+        }
+        .alert("Please Add Some Emojis", isPresented: $showAlert) { }
+        .interactiveDismissDisabled(true)
+        .scrollIndicators(.hidden)
     }
     
     private var colorPicker: some View {
@@ -77,6 +95,39 @@ struct ThemeEditor: View {
         } header: {
              Text("Emojis")
         }
+    }
+    
+    
+    private var saveButton: some View {
+        Button(action: {
+            if isCorrectEmojiCount {
+                dismiss()
+            } else {
+                showAlert = true
+                isSaveButtonDisabled = true
+            }
+        }, label: {
+            Image(systemName: "arrowshape.down.circle")
+                .font(.title2)
+                .frame(width: Constants.Size.width, height: Constants.Size.height)
+                .foregroundStyle(.white)
+                .background(.blue.gradient, in: .circle)
+                .contentShape(.circle)
+                .opacity(isSaveButtonDisabled ? 0.4 : 1)
+        })
+        .disabled(isSaveButtonDisabled)
+    }
+    
+    private var cancelButton: some View {
+        Button(action: {
+            dismiss()
+        }, label: {
+           Image(systemName: "delete.forward")
+                .frame(width: Constants.Size.width, height: Constants.Size.height)
+                .foregroundStyle(.white)
+                .background(.red.gradient, in: .circle)
+                .contentShape(.circle)
+        })
     }
     
     private var removeEmojis: some View {
@@ -123,7 +174,7 @@ struct ThemeEditor: View {
     
     private var numberOfCards: some View {
         Section {
-            Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: theme.emojis.count > 0 ? 2...theme.emojis.count : 2...2)
+            Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: theme.emojis.count < 2 ? 2...2 : 2...theme.emojis.count)
                 .onChange(of: theme.numberOfPairs) { oldValue, newValue in
                     theme.numberOfPairs = max(2, min(newValue, theme.emojis.count))
                 }
@@ -138,6 +189,17 @@ struct ThemeEditor: View {
     
     private var isEmptyRemoved: Bool {
         theme.removedEmojis.isEmpty
+    }
+    
+    private var isCorrectEmojiCount: Bool {
+        theme.emjisCount > 1
+    }
+    
+    private struct Constants {
+        struct Size {
+            static let width: CGFloat = 30
+            static let height: CGFloat = 30
+        }
     }
 }
 

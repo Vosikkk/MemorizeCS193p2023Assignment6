@@ -34,24 +34,29 @@ struct ThemeChooser: View {
                 .listStyle(.inset)
                 .animation(.snappy, value: showThemeEditor)
                 
-                .sheet(isPresented: $showThemeEditor) {
+                .sheet(isPresented: $showThemeEditor, onDismiss: {
+                    if let theme = store.themes.first, theme.emjisCount < 2 {
+                        store.remove(theme)
+                    }
+                }, content: {
                     if let choosenTheme {
                         ThemeEditor(theme: $store.themes[choosenTheme])
                     }
-                }
+                })
                 .navigationDestination(for: Theme.ID.self) { themeId in
                     if let theme = store.themes[themeId] {
-                        EmojiMemoryGameView(game: game(for: theme))
+                        EmojiMemoryGameView(game: getGame(for: theme))
                     }
                 }
-                .onChange(of: choosenTheme) { _ , _ in
-                        showThemeEditor = true
+            
+                .onChange(of: choosenTheme) {
+                    showThemeEditor = true
                 }
-                
                 .onChange(of: store.themes) { oldValue, newValue in
                     updateGames(from: oldValue, to: newValue)
                 }
-                .navigationTitle("Memorize")
+                /// Showing Trasnlucent Toolbar
+                .toolbarBackground(.ultraThinMaterial, for: .navigationBar)
                 .toolbar {
                    toolBarView()
                 }
@@ -77,7 +82,7 @@ struct ThemeChooser: View {
                 y: Constants.positionY)
     }
     
-    private func game(for theme: Theme) -> EmojiMemoryGame {
+    private func getGame(for theme: Theme) -> EmojiMemoryGame {
         if games[theme.id] == nil {
             let game = EmojiMemoryGame(theme: theme)
             games[theme.id] = game
@@ -102,22 +107,29 @@ struct ThemeChooser: View {
     }
     
     @ViewBuilder func toolBarView() -> some View {
-        HStack(spacing: 10) {
-            Text("Create Game")
-                .font(.title3)
-                .fontWeight(.semibold)
-        }
-        Button {
-            store.insert(name: "", emojis: "")
-            choosenTheme = store.themes.first
-        } label: {
-            Image(systemName: "plus")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .frame(width: 30, height: 30)
-                .background(.blue.gradient, in: .circle)
-                .contentShape(.circle)
+        
+        HStack(spacing: Constants.spacing3) {
+            Text("Memorize")
+                .font(.title.bold())
+                .padding()
+            Spacer()
+            HStack(spacing: Constants.spacing2) {
+                Text("Create")
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                Button {
+                    store.insert(name: "", emojis: "")
+                    choosenTheme = store.themes.first
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.callout)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
+                        .frame(width: Constants.Size.width, height: Constants.Size.height)
+                        .background(.blue.gradient, in: .circle)
+                        .contentShape(.circle)
+                }
+            }
         }
     }
 
@@ -135,6 +147,13 @@ struct ThemeChooser: View {
         static let positionX: CGFloat = 0.2
         static let positionY: CGFloat = 0.2
         static let spacing: CGFloat = 5
+        static let spacing2: CGFloat = 2
+        static let spacing3: CGFloat = 10
+        
+        struct Size {
+            static let width: CGFloat = 30
+            static let height: CGFloat = 30
+        }
     }
 }
 
