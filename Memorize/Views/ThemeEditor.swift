@@ -15,6 +15,8 @@ struct ThemeEditor: View {
     @FocusState private var focuced: Focused?
     @State private var showAlert: Bool = false
     @State private var isSaveButtonDisabled: Bool = false
+   
+    /// When cancel it won't affect on our Themes
     @State private var tempTheme: Theme
     
     
@@ -26,6 +28,7 @@ struct ThemeEditor: View {
     
     init(_ theme: Binding<Theme>) {
         _theme = theme
+        /// Work with this :)
         _tempTheme = State(initialValue: theme.wrappedValue)
     }
     
@@ -115,6 +118,8 @@ struct ThemeEditor: View {
                 }
                 dismiss()
             } else {
+                
+                /// Shows alert only once, then disabled button while emojis less than 2
                 showAlert = true
                 isSaveButtonDisabled = true
             }
