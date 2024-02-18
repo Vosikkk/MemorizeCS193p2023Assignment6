@@ -35,12 +35,13 @@ struct ThemeChooser: View {
                 .animation(.snappy, value: showThemeEditor)
                 
                 .sheet(isPresented: $showThemeEditor, onDismiss: {
+                    choosenTheme = nil
                     if let theme = store.themes.first, theme.emjisCount < 2 {
                         store.remove(theme)
                     }
                 }, content: {
                     if let choosenTheme {
-                        ThemeEditor(theme: $store.themes[choosenTheme])
+                        ThemeEditor($store.themes[choosenTheme])
                     }
                 })
                 .navigationDestination(for: Theme.ID.self) { themeId in
@@ -49,8 +50,8 @@ struct ThemeChooser: View {
                     }
                 }
             
-                .onChange(of: choosenTheme) {
-                    showThemeEditor = true
+                .onChange(of: choosenTheme) { _ , newValue in
+                    showThemeEditor = newValue != nil
                 }
                 .onChange(of: store.themes) { oldValue, newValue in
                     updateGames(from: oldValue, to: newValue)

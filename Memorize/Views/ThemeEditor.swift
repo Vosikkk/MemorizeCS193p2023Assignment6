@@ -15,11 +15,20 @@ struct ThemeEditor: View {
     @FocusState private var focuced: Focused?
     @State private var showAlert: Bool = false
     @State private var isSaveButtonDisabled: Bool = false
+    @State private var tempTheme: Theme
+    
     
     private let emojiFont = Font.system(size: 30)
     private let removedEmojiFont = Font.system(size: 20)
     
     @Environment(\.dismiss) private var dismiss
+    
+    
+    init(_ theme: Binding<Theme>) {
+        _theme = theme
+        _tempTheme = State(initialValue: theme.wrappedValue)
+    }
+    
     
     enum Focused {
         case name
@@ -43,14 +52,14 @@ struct ThemeEditor: View {
             }
         }
         .onAppear {
-            if theme.name.isEmpty {
+            if tempTheme.name.isEmpty {
                 focuced = .name
             } else {
                 focuced = .addEmojis
             }
-            selectedColor = theme.uiColor
+            selectedColor = tempTheme.uiColor
         }
-        .onChange(of: theme.emojis) { oldValue, newValue in
+        .onChange(of: tempTheme.emojis) { _ , newValue in
             if newValue.count > 1 {
                 isSaveButtonDisabled = false
             }
@@ -63,10 +72,10 @@ struct ThemeEditor: View {
     private var colorPicker: some View {
         Section {
             ColorPicker("Current Color", selection: $selectedColor)
-                .onChange(of: selectedColor) { oldValue, newValue in
-                    theme.color = theme.rGBA(from: newValue)
+                .onChange(of: selectedColor) { _ , newValue in
+                    tempTheme.color = tempTheme.rGBA(from: newValue)
                 }
-                .foregroundStyle(theme.uiColor)
+                .foregroundStyle(tempTheme.uiColor)
         } header: {
             Text("Color")
         }
@@ -74,7 +83,7 @@ struct ThemeEditor: View {
     
     private var nameTextField: some View {
         Section {
-            TextField("Name", text: $theme.name)
+            TextField("Name", text: $tempTheme.name)
                 .focused($focuced, equals: .name)
         } header: {
             Text("Name")
@@ -87,7 +96,7 @@ struct ThemeEditor: View {
                 .focused($focuced, equals: .addEmojis)
                 .font(emojiFont)
                 .onChange(of: emojiToAdd) { oldValue, newValue in
-                    theme.emojis = (newValue + theme.emojis)
+                    tempTheme.emojis = (newValue + tempTheme.emojis)
                         .filter { $0.isEmoji }
                         .uniqued
                 }
@@ -101,6 +110,9 @@ struct ThemeEditor: View {
     private var saveButton: some View {
         Button(action: {
             if isCorrectEmojiCount {
+                if tempTheme != theme {
+                    theme = tempTheme
+                }
                 dismiss()
             } else {
                 showAlert = true
@@ -122,7 +134,7 @@ struct ThemeEditor: View {
         Button(action: {
             dismiss()
         }, label: {
-           Image(systemName: "delete.forward")
+           Image(systemName: "xmark.circle")
                 .frame(width: Constants.Size.width, height: Constants.Size.height)
                 .foregroundStyle(.white)
                 .background(.red.gradient, in: .circle)
@@ -134,14 +146,14 @@ struct ThemeEditor: View {
         VStack(alignment: .trailing) {
             Text("Tap to Remove Emojis").font(.caption).foregroundStyle(.gray)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 40))]) {
-                  ForEach(theme.emojis.uniqued.map(String.init), id: \.self) { emoji in
+                  ForEach(tempTheme.emojis.uniqued.map(String.init), id: \.self) { emoji in
                     Text(emoji)
                         .opacity(isInGame(emoji) ? 1 : 0.4)
                         .onTapGesture {
                             withAnimation {
-                                theme.emojis.remove(emoji.first!)
+                                tempTheme.emojis.remove(emoji.first!)
                                 emojiToAdd.remove(emoji.first!)
-                                theme.removedEmojis.add(emoji.first!)
+                                tempTheme.removedEmojis.add(emoji.first!)
                             }
                         }
                 }
@@ -155,12 +167,12 @@ struct ThemeEditor: View {
         Section { VStack(alignment: .trailing) {
             Text("Tap To Return Emojis").font(.caption).foregroundStyle(.gray)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 20))]) {
-                ForEach(theme.removedEmojis.map(String.init), id: \.self) { emoji in
+                ForEach(tempTheme.removedEmojis.map(String.init), id: \.self) { emoji in
                     Text(emoji)
                         .onTapGesture {
                             withAnimation {
-                                theme.removedEmojis.remove(emoji.first!)
-                                theme.emojis.add(emoji.first!)
+                                tempTheme.removedEmojis.remove(emoji.first!)
+                                tempTheme.emojis.add(emoji.first!)
                             }
                         }
                 }
@@ -174,25 +186,25 @@ struct ThemeEditor: View {
     
     private var numberOfCards: some View {
         Section {
-            Stepper("Pairs In Game: \(theme.numberOfPairs)", value: $theme.numberOfPairs, in: theme.emojis.count < 2 ? 2...2 : 2...theme.emojis.count)
-                .onChange(of: theme.numberOfPairs) { oldValue, newValue in
-                    theme.numberOfPairs = max(2, min(newValue, theme.emojis.count))
+            Stepper("Pairs In Game: \(tempTheme.numberOfPairs)", value: $tempTheme.numberOfPairs, in: tempTheme.emojis.count < 2 ? 2...2 : 2...tempTheme.emojis.count)
+                .onChange(of: tempTheme.numberOfPairs) { oldValue, newValue in
+                    tempTheme.numberOfPairs = max(2, min(newValue, tempTheme.emojis.count))
                 }
         } header: {
-            Text("Max available quantity: \(theme.emojis.count)")
+            Text("Max available quantity: \(tempTheme.emojis.count)")
         }
     }
     
     private func isInGame(_ emoji: String) -> Bool {
-        theme.emojis.prefix(theme.numberOfPairs).contains(emoji)
+        tempTheme.emojis.prefix(tempTheme.numberOfPairs).contains(emoji)
     }
     
     private var isEmptyRemoved: Bool {
-        theme.removedEmojis.isEmpty
+        tempTheme.removedEmojis.isEmpty
     }
     
     private var isCorrectEmojiCount: Bool {
-        theme.emjisCount > 1
+        tempTheme.emjisCount > 1
     }
     
     private struct Constants {
@@ -207,7 +219,7 @@ struct Preview: View {
     @State private var theme = ThemeStore(named: "Preview").themes.first!
     
     var body: some View {
-        ThemeEditor(theme: $theme)
+        ThemeEditor($theme)
     }
 }
 
