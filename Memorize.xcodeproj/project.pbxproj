@@ -22,6 +22,8 @@
 		38CC6AE22B82ADA10097A878 /* FlyingNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */; };
 		38CC6AE42B82B0EE0097A878 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE32B82B0EE0097A878 /* Cardify.swift */; };
 		38CC6AE62B82B3680097A878 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE52B82B3680097A878 /* Pie.swift */; };
+		38E2B5D62B83F7600008C3E4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2B5D52B83F7600008C3E4 /* CardView.swift */; };
+		38E2B5D82B83FF640008C3E4 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2B5D72B83FF640008C3E4 /* AspectVGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyingNumber.swift; sourceTree = "<group>"; };
 		38CC6AE32B82B0EE0097A878 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		38CC6AE52B82B3680097A878 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
+		38E2B5D52B83F7600008C3E4 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		38E2B5D72B83FF640008C3E4 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,8 @@
 				38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */,
 				38CC6AE32B82B0EE0097A878 /* Cardify.swift */,
 				38CC6AE52B82B3680097A878 /* Pie.swift */,
+				38E2B5D52B83F7600008C3E4 /* CardView.swift */,
+				38E2B5D72B83FF640008C3E4 /* AspectVGrid.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -210,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38E2B5D62B83F7600008C3E4 /* CardView.swift in Sources */,
 				386648132B3070CF0048D742 /* EmojiMemoryGameView.swift in Sources */,
 				384900822B73EAD900B7A8A9 /* ThemeChooser.swift in Sources */,
 				383D47252B378239001CA891 /* MemoryGame.swift in Sources */,
@@ -217,6 +224,7 @@
 				3849007B2B73869C00B7A8A9 /* Extensions+Color+Array.swift in Sources */,
 				38CC6AE22B82ADA10097A878 /* FlyingNumber.swift in Sources */,
 				38CC6AE42B82B0EE0097A878 /* Cardify.swift in Sources */,
+				38E2B5D82B83FF640008C3E4 /* AspectVGrid.swift in Sources */,
 				3849007D2B73887E00B7A8A9 /* Theme.swift in Sources */,
 				384900852B7437C100B7A8A9 /* ThemeEditor.swift in Sources */,
 				386648112B3070CF0048D742 /* MemorizeApp.swift in Sources */,

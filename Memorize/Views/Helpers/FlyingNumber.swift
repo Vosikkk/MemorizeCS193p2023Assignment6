@@ -47,7 +47,7 @@ struct FlyingNumber: View {
             static let moveDown: CGFloat = 200
         }
         struct Animation {
-            static let duration: CGFloat = 1.6
+            static let duration: CGFloat = 2
         }
     }
 }
