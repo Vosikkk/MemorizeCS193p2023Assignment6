@@ -12,7 +12,7 @@ struct ThemeChooser: View {
     @EnvironmentObject var store: ThemeStore
     @State private var showThemeEditor: Bool = false
     @State private var choosenTheme: Theme?
-    @State private var games: [Theme.ID: EmojiMemoryGame] = [:]
+    @State private var games: [Theme.ID: (game: EmojiMemoryGame, hasBeenOpened: Bool)] = [:]
     
     private let font = Font.system(size: 20)
     
@@ -34,8 +34,11 @@ struct ThemeChooser: View {
                 .listStyle(.inset)
                 .animation(.snappy, value: showThemeEditor)
                 
-                .sheet(isPresented: $showThemeEditor, onDismiss: {
+                .sheet(isPresented: $showThemeEditor,
+                       onDismiss: {
+                    /// When we want reopen the same theme
                     choosenTheme = nil
+                    
                     if let theme = store.themes.first, theme.emjisCount < 2 {
                         store.remove(theme)
                     }
@@ -46,7 +49,13 @@ struct ThemeChooser: View {
                 })
                 .navigationDestination(for: Theme.ID.self) { themeId in
                     if let theme = store.themes[themeId] {
-                        EmojiMemoryGameView(game: getGame(for: theme))
+                        let gameInfo = getGame(for: theme)
+                        EmojiMemoryGameView(game: gameInfo.game, hasBeenOpened: gameInfo.hasBeenOpened)
+                            
+                          /// Already has been opened, so cards will be on the table during reopen
+                            .onDisappear {
+                                games[theme.id]?.hasBeenOpened = true
+                            }
                     }
                 }
             
@@ -83,9 +92,9 @@ struct ThemeChooser: View {
                 y: Constants.positionY)
     }
     
-    private func getGame(for theme: Theme) -> EmojiMemoryGame {
+    private func getGame(for theme: Theme) -> (game: EmojiMemoryGame, hasBeenOpened: Bool) {
         if games[theme.id] == nil {
-            let game = EmojiMemoryGame(theme: theme)
+            let game = (EmojiMemoryGame(theme: theme), hasBeenOpened: false)
             games[theme.id] = game
             return game
         }
@@ -134,11 +143,14 @@ struct ThemeChooser: View {
         }
     }
 
+    
+    /// When we change theme we want  our games to see this change and set it
     private func updateGames(from oldThemes: [Theme], to newThemes: [Theme]) {
         for index in 0..<newThemes.count {
             if index < oldThemes.count, newThemes[index] != oldThemes[index],
                games.keys.contains(newThemes[index].id) {
-                games[newThemes[index].id] = EmojiMemoryGame(theme: newThemes[index])
+                /// We made some changes on the theme, so cards will go from the deck as a new game
+                games[newThemes[index].id] = (game: EmojiMemoryGame(theme: newThemes[index]), hasBeenOpened: false)
             }
         }
     }

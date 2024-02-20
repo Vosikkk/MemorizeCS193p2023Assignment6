@@ -15,6 +15,8 @@ struct EmojiMemoryGameView: View {
     
     @State private var lastScoreChange = (0, cousedByCardId: UUID())
     
+    var hasBeenOpened: Bool
+    
     @Namespace private var dealingNamespace
     
     var body: some View {
@@ -33,6 +35,12 @@ struct EmojiMemoryGameView: View {
                 newGameButton
                 Spacer()
                 deck
+            }
+        }
+        .onAppear {
+            if hasBeenOpened {
+                /// Cards will be on the table immediately
+                addToDealt()
             }
         }
         .toolbarTitleDisplayMode(.inline)
@@ -54,6 +62,10 @@ struct EmojiMemoryGameView: View {
                     }
             }
         })
+        .background {
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                .fill(game.colorOfTheme.opacity(Constants.opacity))
+        }
     }
     
     
@@ -64,23 +76,37 @@ struct EmojiMemoryGameView: View {
             }
             deal()
         } label: {
-            Image(systemName: "gamecontroller")
-                .font(.title)
-                .foregroundStyle(.white)
-                .frame(width: Constants.Size.buttonWidth, height: Constants.Size.buttonWidth)
-                .background(game.colorOfTheme.gradient, in: .rect(cornerRadius: Constants.buttonCornerRadius))
-                .contentShape(.rect)
+            VStack(spacing: Constants.secondSpacing) {
+                Text("New Game")
+                    .font(.caption.bold())
+                Image(systemName: "gamecontroller")
+                    .font(.title)
+                    .foregroundStyle(.white)
+                    .frame(width: Constants.Size.buttonWidth, height: Constants.Size.buttonWidth)
+                    .background(game.colorOfTheme.gradient, in: .rect(cornerRadius: Constants.buttonCornerRadius))
+                    .contentShape(.rect)
+            }
         }
     }
     
     private var nameOfTheme: some View {
         Text("\(game.nameOfTheme)")
+            .padding()
+            .background {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
+                    .fill(game.colorOfTheme.opacity(Constants.opacity))
+            }
     }
     
     
     private var score: some View {
         Text("Score: \(game.score)")
             .animation(nil)
+            .padding()
+            .background {
+                RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
+                    .fill(game.colorOfTheme.opacity(Constants.opacity))
+            }
     }
     
     private var deck: some View {
@@ -129,6 +155,9 @@ struct EmojiMemoryGameView: View {
         }
     }
     
+    private func addToDealt() {
+        game.cards.forEach { dealt.insert($0.id) }
+    }
     
     private var undealtCards: [Card] {
         game.cards.filter { !isDealt($0) }
@@ -144,6 +173,9 @@ struct EmojiMemoryGameView: View {
         static let spacing: CGFloat = 4
         static let buttonCornerRadius: CGFloat = 15
         static let inset: CGFloat = 10
+        static let cornerRadius: CGFloat = 15
+        static let opacity: CGFloat = 0.1
+        static let secondSpacing: CGFloat = 3
         
         struct Size {
             static let width: CGFloat = 50
