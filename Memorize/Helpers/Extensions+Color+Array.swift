@@ -108,4 +108,14 @@ extension View {
         self
             .frame(maxHeight: .infinity, alignment: alignment)
     }
+    
+    @ViewBuilder
+    func fillText(_ color: Color, radius: CGFloat, opacity: CGFloat = 0.1) -> some View {
+        self
+            .padding()
+            .background {
+                RoundedRectangle(cornerRadius: radius, style: .continuous)
+                    .fill(color.opacity(opacity))
+            }
+    }
 }

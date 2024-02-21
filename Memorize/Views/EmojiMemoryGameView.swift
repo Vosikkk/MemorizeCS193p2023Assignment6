@@ -15,7 +15,10 @@ struct EmojiMemoryGameView: View {
     
     @State private var lastScoreChange = (0, cousedByCardId: UUID())
     
-    var hasBeenOpened: Bool
+    @State var hasBeenOpened: Bool
+    
+    var cardsOnTheTable: (Bool) -> Void?
+    
     
     @Namespace private var dealingNamespace
     
@@ -42,6 +45,9 @@ struct EmojiMemoryGameView: View {
                 /// Cards will be on the table immediately
                 addToDealt()
             }
+        }
+        .onDisappear {
+            cardsOnTheTable(hasBeenOpened)
         }
         .toolbarTitleDisplayMode(.inline)
         .foregroundStyle(game.colorOfTheme.gradient)
@@ -91,22 +97,14 @@ struct EmojiMemoryGameView: View {
     
     private var nameOfTheme: some View {
         Text("\(game.nameOfTheme)")
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
-                    .fill(game.colorOfTheme.opacity(Constants.opacity))
-            }
+            .fillText(game.colorOfTheme, radius: Constants.cornerRadius)
     }
     
     
     private var score: some View {
         Text("Score: \(game.score)")
             .animation(nil)
-            .padding()
-            .background {
-                RoundedRectangle(cornerRadius: Constants.cornerRadius, style: .continuous)
-                    .fill(game.colorOfTheme.opacity(Constants.opacity))
-            }
+            .fillText(game.colorOfTheme, radius: Constants.cornerRadius)
     }
     
     private var deck: some View {
@@ -131,6 +129,7 @@ struct EmojiMemoryGameView: View {
     // MARK: - Helpers
     
     private func deal() {
+        hasBeenOpened = true
         var delay: TimeInterval = 0
         
         for card in game.cards {

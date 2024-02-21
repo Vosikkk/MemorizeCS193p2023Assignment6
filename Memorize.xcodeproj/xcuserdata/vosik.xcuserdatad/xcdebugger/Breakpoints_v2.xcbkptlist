@@ -14,8 +14,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -152,8 +152,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -245,8 +245,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "row(of:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -261,8 +261,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "getGame(for:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -277,8 +277,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -355,8 +355,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -403,8 +403,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -481,8 +481,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -529,8 +529,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "updateGames(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -545,8 +545,8 @@
             filePath = "Memorize/Views/ThemeChooser.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "updateGames(from:to:)"
             landmarkType = "7">
          </BreakpointContent>
