@@ -73,6 +73,7 @@ struct ThemeChooser: View {
                 .toolbar {
                    toolBarView()
                 }
+                
          }
         .scrollIndicators(.hidden)
     }
