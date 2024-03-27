@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Assignment1Memorize
+//  Memorize
 //
 //  Created by Саша Восколович on 18.12.2023.
 //

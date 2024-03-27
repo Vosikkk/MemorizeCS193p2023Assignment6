@@ -55,10 +55,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 cards[chosenIndex].isFaceUp.toggle()
                 
             } else {
-//                if matchedIndexes == 2 {
-//                    cards.removeAll { $0.isMatched }
-//                }
-                // open card(will be open alone :)) )
                 indexOfOneAndOnlyFaceUpCard = chosenIndex
             }
         }
@@ -152,8 +148,3 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
 }
 
-extension Collection {
-    var oneAndOnly: Element? {
-        return count == 1 ? first : nil
-    }
-}
