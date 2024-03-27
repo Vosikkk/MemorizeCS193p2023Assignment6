@@ -23,6 +23,7 @@
 		386648182B3070D10048D742 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 386648172B3070D10048D742 /* Preview Assets.xcassets */; };
 		386D276A2BB4DEF100404534 /* Extension+Array+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D27692BB4DEF100404534 /* Extension+Array+Collection.swift */; };
 		386D276C2BB4DF3300404534 /* Extension+String+Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D276B2BB4DF3300404534 /* Extension+String+Character.swift */; };
+		386D276E2BB4E62000404534 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D276D2BB4E62000404534 /* Cache.swift */; };
 		38CC6AE22B82ADA10097A878 /* FlyingNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */; };
 		38CC6AE42B82B0EE0097A878 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE32B82B0EE0097A878 /* Cardify.swift */; };
 		38CC6AE62B82B3680097A878 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE52B82B3680097A878 /* Pie.swift */; };
@@ -48,6 +49,7 @@
 		386648172B3070D10048D742 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		386D27692BB4DEF100404534 /* Extension+Array+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Array+Collection.swift"; sourceTree = "<group>"; };
 		386D276B2BB4DF3300404534 /* Extension+String+Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String+Character.swift"; sourceTree = "<group>"; };
+		386D276D2BB4E62000404534 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyingNumber.swift; sourceTree = "<group>"; };
 		38CC6AE32B82B0EE0097A878 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		38CC6AE52B82B3680097A878 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				386648102B3070CF0048D742 /* MemorizeApp.swift */,
 				386648142B3070D10048D742 /* Assets.xcassets */,
 				386648162B3070D10048D742 /* Preview Content */,
+				386D276D2BB4E62000404534 /* Cache.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				383D47252B378239001CA891 /* MemoryGame.swift in Sources */,
 				380681992B86399100EE1E5D /* SplitThemeChooser.swift in Sources */,
 				384900792B73858D00B7A8A9 /* ColorRGBA.swift in Sources */,
+				386D276E2BB4E62000404534 /* Cache.swift in Sources */,
 				3849007B2B73869C00B7A8A9 /* Extensions+Color+View.swift in Sources */,
 				38CC6AE22B82ADA10097A878 /* FlyingNumber.swift in Sources */,
 				38CC6AE42B82B0EE0097A878 /* Cardify.swift in Sources */,
