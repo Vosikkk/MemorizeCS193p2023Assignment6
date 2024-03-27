@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "C937B96E-0E82-4210-A6BB-50C827A144E8",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Memorize.xcodeproj",
+      "identifier" : "3866480C2B3070CF0048D742",
+      "name" : "Memorize"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Memorize.xcodeproj",
+        "identifier" : "386D27722BB4E7EC00404534",
+        "name" : "MemorizeTests"
+      }
+    }
+  ],
+  "version" : 1
+}

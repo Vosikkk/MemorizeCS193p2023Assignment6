@@ -24,12 +24,23 @@
 		386D276A2BB4DEF100404534 /* Extension+Array+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D27692BB4DEF100404534 /* Extension+Array+Collection.swift */; };
 		386D276C2BB4DF3300404534 /* Extension+String+Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D276B2BB4DF3300404534 /* Extension+String+Character.swift */; };
 		386D276E2BB4E62000404534 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D276D2BB4E62000404534 /* Cache.swift */; };
+		386D277D2BB4E81F00404534 /* CacheTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D277C2BB4E81F00404534 /* CacheTest.swift */; };
 		38CC6AE22B82ADA10097A878 /* FlyingNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */; };
 		38CC6AE42B82B0EE0097A878 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE32B82B0EE0097A878 /* Cardify.swift */; };
 		38CC6AE62B82B3680097A878 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38CC6AE52B82B3680097A878 /* Pie.swift */; };
 		38E2B5D62B83F7600008C3E4 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2B5D52B83F7600008C3E4 /* CardView.swift */; };
 		38E2B5D82B83FF640008C3E4 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38E2B5D72B83FF640008C3E4 /* AspectVGrid.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		386D27772BB4E7EC00404534 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 386648052B3070CF0048D742 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3866480C2B3070CF0048D742;
+			remoteInfo = Memorize;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		380681982B86399100EE1E5D /* SplitThemeChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitThemeChooser.swift; sourceTree = "<group>"; };
@@ -50,6 +61,9 @@
 		386D27692BB4DEF100404534 /* Extension+Array+Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Array+Collection.swift"; sourceTree = "<group>"; };
 		386D276B2BB4DF3300404534 /* Extension+String+Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String+Character.swift"; sourceTree = "<group>"; };
 		386D276D2BB4E62000404534 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		386D27732BB4E7EC00404534 /* MemorizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemorizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		386D277C2BB4E81F00404534 /* CacheTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheTest.swift; sourceTree = "<group>"; };
+		386D277E2BB4E88300404534 /* Memorize.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Memorize.xctestplan; sourceTree = "<group>"; };
 		38CC6AE12B82ADA10097A878 /* FlyingNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyingNumber.swift; sourceTree = "<group>"; };
 		38CC6AE32B82B0EE0097A878 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		38CC6AE52B82B3680097A878 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
@@ -59,6 +73,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		3866480A2B3070CF0048D742 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386D27702BB4E7EC00404534 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -113,7 +134,9 @@
 		386648042B3070CF0048D742 = {
 			isa = PBXGroup;
 			children = (
+				386D277E2BB4E88300404534 /* Memorize.xctestplan */,
 				3866480F2B3070CF0048D742 /* Memorize */,
+				386D27742BB4E7EC00404534 /* MemorizeTests */,
 				3866480E2B3070CF0048D742 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				3866480D2B3070CF0048D742 /* Memorize.app */,
+				386D27732BB4E7EC00404534 /* MemorizeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -147,6 +171,14 @@
 				386648172B3070D10048D742 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		386D27742BB4E7EC00404534 /* MemorizeTests */ = {
+			isa = PBXGroup;
+			children = (
+				386D277C2BB4E81F00404534 /* CacheTest.swift */,
+			);
+			path = MemorizeTests;
 			sourceTree = "<group>";
 		};
 		38CC6AE02B82AD840097A878 /* Helpers */ = {
@@ -181,6 +213,24 @@
 			productReference = 3866480D2B3070CF0048D742 /* Memorize.app */;
 			productType = "com.apple.product-type.application";
 		};
+		386D27722BB4E7EC00404534 /* MemorizeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 386D27792BB4E7EC00404534 /* Build configuration list for PBXNativeTarget "MemorizeTests" */;
+			buildPhases = (
+				386D276F2BB4E7EC00404534 /* Sources */,
+				386D27702BB4E7EC00404534 /* Frameworks */,
+				386D27712BB4E7EC00404534 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				386D27782BB4E7EC00404534 /* PBXTargetDependency */,
+			);
+			name = MemorizeTests;
+			productName = MemorizeTests;
+			productReference = 386D27732BB4E7EC00404534 /* MemorizeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,11 +238,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1510;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					3866480C2B3070CF0048D742 = {
 						CreatedOnToolsVersion = 15.1;
+					};
+					386D27722BB4E7EC00404534 = {
+						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1530;
+						TestTargetID = 3866480C2B3070CF0048D742;
 					};
 				};
 			};
@@ -210,6 +265,7 @@
 			projectRoot = "";
 			targets = (
 				3866480C2B3070CF0048D742 /* Memorize */,
+				386D27722BB4E7EC00404534 /* MemorizeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -221,6 +277,13 @@
 			files = (
 				386648182B3070D10048D742 /* Preview Assets.xcassets in Resources */,
 				386648152B3070D10048D742 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386D27712BB4E7EC00404534 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +317,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		386D276F2BB4E7EC00404534 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				386D277D2BB4E81F00404534 /* CacheTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		386D27782BB4E7EC00404534 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3866480C2B3070CF0048D742 /* Memorize */;
+			targetProxy = 386D27772BB4E7EC00404534 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		386648192B3070D10048D742 /* Debug */ = {
@@ -391,6 +470,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -419,6 +499,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -429,6 +510,47 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		386D277A2BB4E7EC00404534 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XWYX5D2GFA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Vosik.MemorizeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memorize.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Memorize";
+			};
+			name = Debug;
+		};
+		386D277B2BB4E7EC00404534 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XWYX5D2GFA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Vosik.MemorizeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Memorize.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Memorize";
 			};
 			name = Release;
 		};
@@ -449,6 +571,15 @@
 			buildConfigurations = (
 				3866481C2B3070D10048D742 /* Debug */,
 				3866481D2B3070D10048D742 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		386D27792BB4E7EC00404534 /* Build configuration list for PBXNativeTarget "MemorizeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				386D277A2BB4E7EC00404534 /* Debug */,
+				386D277B2BB4E7EC00404534 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
